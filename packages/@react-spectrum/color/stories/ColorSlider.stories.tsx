@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
+import {action} from '@storybook/addon-actions';
 import {ColorSlider} from '../';
 import {Flex} from '@react-spectrum/layout';
 import {parseColor} from '@react-stately/color';
@@ -20,55 +21,63 @@ import {Text} from '@react-spectrum/text';
 storiesOf('ColorSlider', module)
   .add(
     'default',
-    () => <ColorSlider defaultValue="#7f0000" channel={'red'} />
+    () => <ColorSlider defaultValue="#7f0000" channel={'red'} onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'no label, default aria-label',
-    () => <ColorSlider defaultValue="#7f0000" channel={'red'} label={null} />
+    () => <ColorSlider defaultValue="#7f0000" channel={'red'} label={null} onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'no value label',
-    () => <ColorSlider defaultValue="#7f0000" channel={'red'} showValueLabel={false} />
+    () => <ColorSlider defaultValue="#7f0000" channel={'red'} showValueLabel={false} onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'custom aria-label',
-    () => <ColorSlider defaultValue="#7f0000" channel={'red'} aria-label="Color Picker Channel: Red" />
+    () => <ColorSlider defaultValue="#7f0000" channel={'red'} aria-label="Color Picker Channel: Red" onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'step',
-    () => <ColorSlider defaultValue="hsl(0, 100%, 50%)" channel={'hue'} step={72} />
+    () => <ColorSlider defaultValue="hsl(0, 100%, 50%)" channel={'hue'} step={72} onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'disabled',
-    () => <ColorSlider defaultValue="#333333" channel={'red'} isDisabled />
+    () => <ColorSlider defaultValue="#333333" channel={'red'} isDisabled onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'vertical',
-    () => <ColorSlider defaultValue="#ff0000" channel={'red'} orientation="vertical" />
+    () => <ColorSlider defaultValue="#ff0000" channel={'red'} orientation="vertical" onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'controlled',
-    () => <ColorSlider value="#ff0000" channel={'red'} />
+    () => <ColorSlider value="#ff0000" channel={'red'} onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'custom width',
-    () => <ColorSlider defaultValue="#7f0000" channel={'red'} width={300} />
+    () => <ColorSlider defaultValue="#7f0000" channel={'red'} width={300} onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'custom height',
-    () => <ColorSlider defaultValue="#7f0000" channel={'red'} orientation="vertical" height={300} />
+    () => <ColorSlider defaultValue="#7f0000" channel={'red'} orientation="vertical" height={300} onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'rgba',
     () => {
       let [color, setColor] = useState(parseColor('#ff00ff'));
+      function onChange(c) {
+        setColor(c);
+        action('change')(c);
+      }
+      function onChangeEnd(c) {
+        setColor(c);
+        action('changeEnd')(c);
+      }
       return (<div role="group" aria-label="RGBA Color Picker">
         <Flex gap="size-500" alignItems="center">
           <Flex direction="column">
-            <ColorSlider value={color} onChange={setColor} channel={'red'} />
-            <ColorSlider value={color} onChange={setColor} channel={'green'} />
-            <ColorSlider value={color} onChange={setColor} channel={'blue'} />
-            <ColorSlider value={color} onChange={setColor} channel={'alpha'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'red'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'green'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'blue'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'alpha'} />
           </Flex>
           <Flex direction="column" alignItems="center"gap="size-100">
             <div style={{width: '100px', height: '100px', background: color.toString('css')}} />
@@ -82,13 +91,21 @@ storiesOf('ColorSlider', module)
     'hsla',
     () => {
       let [color, setColor] = useState(parseColor('hsla(0, 100%, 50%, 0.5)'));
+      function onChange(c) {
+        setColor(c);
+        action('change')(c);
+      }
+      function onChangeEnd(c) {
+        setColor(c);
+        action('changeEnd')(c);
+      }
       return (<div role="group" aria-label="HSLA Color Picker">
         <Flex gap="size-500" alignItems="center">
           <Flex direction="column">
-            <ColorSlider value={color} onChange={setColor} channel={'hue'} />
-            <ColorSlider value={color} onChange={setColor} channel={'saturation'} />
-            <ColorSlider value={color} onChange={setColor} channel={'lightness'} />
-            <ColorSlider value={color} onChange={setColor} channel={'alpha'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'hue'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'saturation'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'lightness'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'alpha'} />
           </Flex>
           <Flex direction="column" alignItems="center" gap="size-100">
             <div style={{width: '100px', height: '100px', background: color.toString('css')}} />
@@ -101,13 +118,21 @@ storiesOf('ColorSlider', module)
     'hsba',
     () => {
       let [color, setColor] = useState(parseColor('hsba(0, 100%, 50%, 0.5)'));
+      function onChange(c) {
+        setColor(c);
+        action('change')(c);
+      }
+      function onChangeEnd(c) {
+        setColor(c);
+        action('changeEnd')(c);
+      }
       return (<div role="group" aria-label="HSBA Color Picker">
         <Flex gap="size-500" alignItems="center">
           <Flex direction="column">
-            <ColorSlider value={color} onChange={setColor} channel={'hue'} />
-            <ColorSlider value={color} onChange={setColor} channel={'saturation'} />
-            <ColorSlider value={color} onChange={setColor} channel={'brightness'} />
-            <ColorSlider value={color} onChange={setColor} channel={'alpha'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'hue'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'saturation'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'brightness'} />
+            <ColorSlider value={color} onChange={onChange} onChangeEnd={onChangeEnd} channel={'alpha'} />
           </Flex>
           <Flex direction="column" alignItems="center" gap="size-100">
             <div style={{width: '100px', height: '100px', background: color.toString('css')}} />

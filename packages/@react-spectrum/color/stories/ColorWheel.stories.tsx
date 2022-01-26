@@ -20,15 +20,15 @@ import {storiesOf} from '@storybook/react';
 storiesOf('ColorWheel', module)
   .add(
     'default',
-    () => <ColorWheel defaultValue="hsl(0, 100%, 50%)')" onChange={action('change')} />
+    () => <ColorWheel defaultValue="hsl(0, 100%, 50%)')" onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'disabled',
-    () => <ColorWheel isDisabled defaultValue="hsl(0, 100%, 50%)" />
+    () => <ColorWheel isDisabled defaultValue="hsl(0, 100%, 50%)" onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'step',
-    () => <ColorWheel step={6} defaultValue="hsl(0, 100%, 50%)" />
+    () => <ColorWheel step={6} defaultValue="hsl(0, 100%, 50%)" onChange={action('change')} onChangeEnd={action('changeEnd')} />
   )
   .add(
     'custom size',
@@ -40,7 +40,7 @@ storiesOf('ColorWheel', module)
           <button onClick={() => setSize('size-5000')}>size-5000</button>
           <button onClick={() => setSize('50vh')}>50vh</button>
         </Flex>
-        <ColorWheel defaultValue="hsl(0, 100%, 50%)" size={size} />
+        <ColorWheel defaultValue="hsl(0, 100%, 50%)" size={size} onChange={action('change')} onChangeEnd={action('changeEnd')} />
       </Flex>);
     }
   )
@@ -49,15 +49,23 @@ storiesOf('ColorWheel', module)
     () => {
       let [color, setColor] = useState(parseColor('hsl(0, 100%, 50%)'));
       let colorCSS = color.toString('css');
+      let onChangeEnd = (color) => {
+        setColor(color);
+        action('changeEnd')(color);
+      };
+      let onChange = (color) => {
+        setColor(color);
+        action('change')(color);
+      };
       return (<Flex gap={'size-500'} direction="row" alignItems="center">
-        <ColorWheel onChange={setColor} value={color} />
+        <ColorWheel onChange={onChange} onChangeEnd={onChangeEnd} value={color} />
         <div style={{width: '50px', height: '50px', backgroundColor: colorCSS, border: '1px solid black'}} />
       </Flex>);
     }
   )
   .add(
     'controlled hsl',
-    () => <Flex gap={'size-500'} direction="row" alignItems="center"><ControlledHSL onChangeEnd={action('onChangeEnd')} /></Flex>
+    () => <Flex gap={'size-500'} direction="row" alignItems="center"><ControlledHSL onChange={action('change')} onChangeEnd={action('changeEnd')} /></Flex>
   );
 
 export function ControlledHSL(props) {
