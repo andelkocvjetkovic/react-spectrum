@@ -323,6 +323,20 @@ describe('ColorSlider', () => {
       expect(onChangeEndSpy).toHaveBeenCalledTimes(6);
       expect(onChangeEndSpy.mock.calls[5][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 255).toString('hexa'));
 
+      fireEvent.keyDown(slider, {key: 'End'});
+      act(() => jest.runAllTimers());
+      expect(onChangeSpy).toHaveBeenCalledTimes(6);
+      expect(onChangeSpy.mock.calls[5][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 255).toString('hexa'));
+      expect(onChangeEndSpy).toHaveBeenCalledTimes(6);
+      expect(onChangeEndSpy.mock.calls[5][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 255).toString('hexa'));
+      
+      fireEvent.keyDown(slider, {key: 'PageUp'});
+      act(() => jest.runAllTimers());
+      expect(onChangeSpy).toHaveBeenCalledTimes(6);
+      expect(onChangeSpy.mock.calls[5][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 255).toString('hexa'));
+      expect(onChangeEndSpy).toHaveBeenCalledTimes(6);
+      expect(onChangeEndSpy.mock.calls[5][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 255).toString('hexa'));
+
       fireEvent.keyDown(slider, {key: 'PageDown'});
       act(() => jest.runAllTimers());
       expect(onChangeSpy).toHaveBeenCalledTimes(7);
@@ -331,6 +345,20 @@ describe('ColorSlider', () => {
       expect(onChangeEndSpy.mock.calls[6][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 240).toString('hexa'));
 
       fireEvent.keyDown(slider, {key: 'Home'});
+      act(() => jest.runAllTimers());
+      expect(onChangeSpy).toHaveBeenCalledTimes(8);
+      expect(onChangeSpy.mock.calls[7][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 0).toString('hexa'));
+      expect(onChangeEndSpy).toHaveBeenCalledTimes(8);
+      expect(onChangeEndSpy.mock.calls[7][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 0).toString('hexa'));
+
+      fireEvent.keyDown(slider, {key: 'Home'});
+      act(() => jest.runAllTimers());
+      expect(onChangeSpy).toHaveBeenCalledTimes(8);
+      expect(onChangeSpy.mock.calls[7][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 0).toString('hexa'));
+      expect(onChangeEndSpy).toHaveBeenCalledTimes(8);
+      expect(onChangeEndSpy.mock.calls[7][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 0).toString('hexa'));
+
+      fireEvent.keyDown(slider, {key: 'PageDown'});
       act(() => jest.runAllTimers());
       expect(onChangeSpy).toHaveBeenCalledTimes(8);
       expect(onChangeSpy.mock.calls[7][0].toString('hexa')).toBe(defaultColor.withChannelValue('red', 0).toString('hexa'));
