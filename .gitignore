@@ -6,7 +6,6 @@ build-storybook.log
 test-reports.xml
 junit.xml
 .nyc_output
-dist
 .idea
 .package-lock.json
 .cache

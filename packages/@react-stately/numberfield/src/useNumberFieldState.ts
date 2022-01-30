@@ -40,6 +40,8 @@ export interface NumberFieldState {
    * Can be used to implement validation as a user types.
    */
   validate(value: string): boolean,
+  /** Sets the current number value of the input. */
+  setNumberValue(val: number): void,
   /** Sets the current text value of the input. */
   setInputValue(val: string): void,
   /**
@@ -56,7 +58,8 @@ export interface NumberFieldState {
   /** Sets the current value to the `maxValue` if any, and fires `onChange`. */
   incrementToMax(): void,
   /** Sets the current value to the `minValue` if any, and fires `onChange`. */
-  decrementToMin(): void
+  decrementToMin(): void,
+  safeNextStep(operation: string,minMax: number): number,
 }
 
 interface NumberFieldStateProps extends NumberFieldProps {
@@ -238,9 +241,11 @@ export function useNumberFieldState(
     minValue,
     maxValue,
     numberValue: parsedValue,
+    setNumberValue,
     setInputValue,
     inputValue,
-    commit
+    commit,
+    safeNextStep,
   };
 }
 

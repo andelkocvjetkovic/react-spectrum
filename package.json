@@ -180,5 +180,8 @@
     "@babel/runtime": "7.12.5",
     "postcss-calc": "6.0.2",
     "jsdom": "16.7.0"
-  }
+  },
+  "precommit": [
+    "build"
+  ]
 }
