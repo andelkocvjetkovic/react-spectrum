@@ -11,7 +11,6 @@ junit.xml
 .cache
 .parcel-cache
 
-dist
 public
 storybook-static
 junit.xml
